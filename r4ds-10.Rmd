@@ -1,0 +1,170 @@
+---
+title: "R Notebook"
+output: 
+  html_notebook:
+    toc: true
+
+---
+
+## 10 [Tibbles](http://r4ds.had.co.nz/tibbles.html)
+
+`vignette(tibble)` has more examples:
+
+- use with list-columns
+
+
+### 10.1 Introduction
+```{r}
+library(tidyverse)
+```
+
+### 10.2 Creating tibbles
+
+```{r}
+as_tibble(iris)
+```
+
+```{r}
+tibble(
+  x = 1:5,
+  y = 1,
+  z = x ^ 2 + y
+)
+```
+#### non-syntactic variable names
+
+```{r}
+tb <- tibble(
+  `:)` = "smile",
+  ` ` = "space",
+  `2000` = "number"
+)
+tb
+```
+
+#### transposed tibble
+
+```{r}
+tribble(
+  ~x, ~y, ~z,
+  #--|--|----
+  "a", 2, 3.6,
+  "b", 1, 8.5
+)
+```
+### 10.3 Tibbles vs. data.frame
+
+#### printing
+
+**Default Behaviour**
+
+- only first 10 rows
+- all columns fit on screen
+- reports column type
+
+```{r}
+tibble(
+  a = lubridate::now() + runif(1e3) * 86400,
+  b = lubridate::today() + runif(1e3) * 30,
+  c = 1:1e3,
+  d = runif(1e3),
+  e = sample(letters, 1e3, replace = TRUE)
+)
+```
+
+
+**View more**
+
+- `print(n=[rows], width=[Inf for all])`
+- `View()`: useful at end of manipulations
+
+```{r}
+nycflights13::flights %>%
+  print(n=5, width = Inf)
+```
+
+**Change Tibbles Default**
+
+
+- ` options(tibble.print_max = n, tibble.print_min = m) ` to show at least m, and at most n rows
+- ` options(dplyr.print_min = Inf) ` to show all rows, always.
+- other options listed in `package?tibble`
+
+#### Subsetting
+
+**Methods**
+
+- Extract by variable name: `df$x` or `df[["x"]]`
+- Extract by column position: `df[[1]]`
+- in pipes: `df %>% .$x` or `df %>% .[[1]]`
+
+** Comparison to data.frames **
+
+- no partial matching, 
+- warns if column doesn't exist
+- data.frames selection `[` some times returns data.frames, or vectors
+- tibbles always return tibbles
+
+### 10.4 Interacting with older code
+
+- some older functions don't work with `tibbles`. Use `as.data.frame()`
+
+```{r}
+class(as.data.frame(tb))
+```
+
+### 10.5 Exercises
+
+1. tibbles have different default print behaviour
+
+2. Compare & Contrast
+    - what does `Levels:` mean?
+
+```{r}
+df <- data.frame(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+df[, c("abc", "xyz")]
+```
+
+```{r}
+df <- tibble(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+df[, c("abc", "xyz")]
+```
+
+3. You can extract a variable whose name is stored in an object using `[[obj]]`:
+```{r}
+var <- "abc"
+df[[var]]
+```
+
+4. Practice reference to non-syntactic names
+```{r}
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+
+# extract variable called 1
+annoying$`1`
+
+# plot scatterplot of `1` vs `2`
+ggplot(data = annoying) +
+  geom_point(mapping = aes( x = `1`, y = `2`))
+
+# create new column called `3`
+new_annoying <- mutate(annoying, `3` = `2` / `1`)
+
+# rename columns to one, two, three
+`colnames<-`(new_annoying,c('one','two','three'))
+```
+
+5. What does `tibble::enframe` do? When might you use it?
+
+- `enframe()` takes named or unnamed vectors/lists and turns them into two column data frames
+- `deframe()` turns two column data frams into named vector or list
+
+6. `print(x,..., n_extra = NULL)` sets number of extra col names to print. Default is at `getOption("tibble.max_extra_cols")`
+
