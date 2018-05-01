@@ -10,6 +10,7 @@ output:
 ### 10.1 Introduction
 
 From R for Data Science, [10: Tibbles](http://r4ds.had.co.nz/tibbles.html)
+Started & Completed: 1 May, 2018
 
 ```{r}
 library(tidyverse)
