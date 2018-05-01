@@ -1,22 +1,23 @@
 ---
-title: "R Notebook"
+title: "R for Data Science"
 output: 
   html_notebook:
     toc: true
 
 ---
+## 10 Tibbles
 
-## 10 [Tibbles](http://r4ds.had.co.nz/tibbles.html)
+### 10.1 Introduction
+
+From R for Data Science, [10: Tibbles](http://r4ds.had.co.nz/tibbles.html)
+
+```{r}
+library(tidyverse)
+```
 
 `vignette(tibble)` has more examples:
 
 - use with list-columns
-
-
-### 10.1 Introduction
-```{r}
-library(tidyverse)
-```
 
 ### 10.2 Creating tibbles
 

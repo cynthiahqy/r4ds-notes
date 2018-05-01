@@ -143,7 +143,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("r4ds-10.Rmd");
+  window.initializeSourceEmbed("r4ds-11.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -173,22 +173,19 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#tibbles">10 Tibbles</a><ul>
-<li><a href="#introduction">10.1 Introduction</a></li>
-<li><a href="#creating-tibbles">10.2 Creating tibbles</a></li>
-<li><a href="#tibbles-vs.data.frame">10.3 Tibbles vs. data.frame</a></li>
-<li><a href="#interacting-with-older-code">10.4 Interacting with older code</a></li>
-<li><a href="#exercises">10.5 Exercises</a></li>
+<li><a href="#data-import">11 Data Import</a><ul>
+<li><a href="#introduction">11.1 Introduction</a></li>
+<li><a href="#getting-started">11.2 Getting Started</a></li>
 </ul></li>
 </ul>
 </div>
 
 <!-- rnb-text-begin -->
-<div id="tibbles" class="section level2">
-<h2>10 Tibbles</h2>
+<div id="data-import" class="section level2">
+<h2>11 Data Import</h2>
+<p>From R for Data Science: <a href="http://r4ds.had.co.nz/data-import.html">11 Data Import</a> Started: 1 May, 2018</p>
 <div id="introduction" class="section level3">
-<h3>10.1 Introduction</h3>
-<p>From R for Data Science, <a href="http://r4ds.had.co.nz/tibbles.html">10: Tibbles</a></p>
+<h3>11.1 Introduction</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
@@ -196,216 +193,285 @@ $(document).ready(function () {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p><code>vignette(tibble)</code> has more examples:</p>
-<ul>
-<li>use with list-columns</li>
-</ul>
 </div>
-<div id="creating-tibbles" class="section level3">
-<h3>10.2 Creating tibbles</h3>
+<div id="getting-started" class="section level3">
+<h3>11.2 Getting Started</h3>
+<ul>
+<li><code>readr</code> functions are mostly concerned with flat files into data.frames:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">separation</th>
+<th align="left">function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">delimiter</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">, comma</td>
+<td align="left"><code>read_csv()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">; semi-colon</td>
+<td align="left"><code>read_csv2()</code></td>
+</tr>
+<tr class="even">
+<td align="left">tab</td>
+<td align="left"><code>read_tcv()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="left"><code>read_delim()</code></td>
+</tr>
+<tr class="even">
+<td align="left">fixed width files</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">auto</td>
+<td align="left"><code>read_fwf()</code></td>
+</tr>
+<tr class="even">
+<td align="left">widths</td>
+<td align="left"><code>fwf_width()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">positions</td>
+<td align="left"><code>fwf_positions()</code></td>
+</tr>
+<tr class="even">
+<td align="left">other</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">white space table</td>
+<td align="left"><code>read_table()</code></td>
+</tr>
+<tr class="even">
+<td align="left">log files</td>
+<td align="left"><code>read_log()</code> or <a href="https://github.com/Ironholds/webreadr">webreadr</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Focus on <code>?read_csv</code>. Use inline csv for experimentation
+<ul>
+<li><code>comment = &quot;#&quot;</code> drops all lines starting with <code>#</code></li>
+<li><code>skip = n</code> skips n lies, after comment drop (regardless of order in function)</li>
+<li><code>col_names = TRUE/FALSE/c(vector)</code></li>
+<li><code>na = &quot;.&quot;</code> reads any <code>.</code> in the csv as N/A values</li>
+</ul></li>
+</ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXNfdGliYmxlKGlyaXMpXG5gYGAifQ== -->
-<pre class="r"><code>as_tibble(iris)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKFxuICB4ID0gMTo1LFxuICB5ID0gMSxcbiAgeiA9IHggXiAyICsgeVxuKVxuYGBgIn0= -->
-<pre class="r"><code>tibble(
-  x = 1:5,
-  y = 1,
-  z = x ^ 2 + y
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVhZF9jc3YoXG4gIFwiIyBjb21tZW50XG4gIG1ldGEgZGF0YVxuICBhLGIsY1xcbjEsMiwzXFxuNCw1LDZcIixcbiAgc2tpcCA9IDEsIGNvbW1lbnQgPSBcIiNcIiwgY29sX25hbWVzID0gYyhcIm9uZVwiLFwidHdvXCIsXCJ0aHJlZVwiKVxuKVxuYGBgIn0= -->
+<pre class="r"><code>read_csv(
+  &quot;# comment
+  meta data
+  a,b,c\n1,2,3\n4,5,6&quot;,
+  skip = 1, comment = &quot;#&quot;, col_names = c(&quot;one&quot;,&quot;two&quot;,&quot;three&quot;)
 )</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDMgeCAzXHUwMDFiWzM5bVxuICBvbmUgICB0d28gICB0aHJlZVxuICBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbSBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbSBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbVxuXHUwMDFiWzM4OzU7MjUwbTFcdTAwMWJbMzltIGEgICAgIGIgICAgIGMgICAgXG5cdTAwMWJbMzg7NTsyNTBtMlx1MDAxYlszOW0gMSAgICAgMiAgICAgMyAgICBcblx1MDAxYlszODs1OzI1MG0zXHUwMDFiWzM5bSA0ICAgICA1ICAgICA2ICAgIFxuIn0= -->
+<pre><code>[38;5;246m# A tibble: 3 x 3[39m
+  one   two   three
+  [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m
+[38;5;250m1[39m a     b     c    
+[38;5;250m2[39m 1     2     3    
+[38;5;250m3[39m 4     5     6    </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<div id="non-syntactic-variable-names" class="section level4">
-<h4>non-syntactic variable names</h4>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGIgPC0gdGliYmxlKFxuICBgOilgID0gXCJzbWlsZVwiLFxuICBgIGAgPSBcInNwYWNlXCIsXG4gIGAyMDAwYCA9IFwibnVtYmVyXCJcbilcbnRiXG5gYGAifQ== -->
-<pre class="r"><code>tb &lt;- tibble(
-  `:)` = &quot;smile&quot;,
-  ` ` = &quot;space&quot;,
-  `2000` = &quot;number&quot;
-)
-tb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="transposed-tibble" class="section level4">
-<h4>transposed tibble</h4>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJpYmJsZShcbiAgfngsIH55LCB+eixcbiAgIy0tfC0tfC0tLS1cbiAgXCJhXCIsIDIsIDMuNixcbiAgXCJiXCIsIDEsIDguNVxuKVxuYGBgIn0= -->
-<pre class="r"><code>tribble(
-  ~x, ~y, ~z,
-  #--|--|----
-  &quot;a&quot;, 2, 3.6,
-  &quot;b&quot;, 1, 8.5
-)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-</div>
-<div id="tibbles-vs.data.frame" class="section level3">
-<h3>10.3 Tibbles vs. data.frame</h3>
-<div id="printing" class="section level4">
-<h4>printing</h4>
-<p><strong>Default Behaviour</strong></p>
+<p>)</p>
+<div id="compared-to-base-r" class="section level4">
+<h4>11.2.1 Compared to Base R</h4>
 <ul>
-<li>only first 10 rows</li>
-<li>all columns fit on screen</li>
-<li>reports column type</li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKFxuICBhID0gbHVicmlkYXRlOjpub3coKSArIHJ1bmlmKDFlMykgKiA4NjQwMCxcbiAgYiA9IGx1YnJpZGF0ZTo6dG9kYXkoKSArIHJ1bmlmKDFlMykgKiAzMCxcbiAgYyA9IDE6MWUzLFxuICBkID0gcnVuaWYoMWUzKSxcbiAgZSA9IHNhbXBsZShsZXR0ZXJzLCAxZTMsIHJlcGxhY2UgPSBUUlVFKVxuKVxuYGBgIn0= -->
-<pre class="r"><code>tibble(
-  a = lubridate::now() + runif(1e3) * 86400,
-  b = lubridate::today() + runif(1e3) * 30,
-  c = 1:1e3,
-  d = runif(1e3),
-  e = sample(letters, 1e3, replace = TRUE)
-)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p><strong>View more</strong></p>
-<ul>
-<li><code>print(n=[rows], width=[Inf for all])</code></li>
-<li><code>View()</code>: useful at end of manipulations</li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubnljZmxpZ2h0czEzOjpmbGlnaHRzICU+JVxuICBwcmludChuPTUsIHdpZHRoID0gSW5mKVxuYGBgIn0= -->
-<pre class="r"><code>nycflights13::flights %&gt;%
-  print(n=5, width = Inf)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p><strong>Change Tibbles Default</strong></p>
-<ul>
-<li><code>options(tibble.print_max = n, tibble.print_min = m)</code> to show at least m, and at most n rows</li>
-<li><code>options(dplyr.print_min = Inf)</code> to show all rows, always.</li>
-<li>other options listed in <code>package?tibble</code></li>
+<li>many reasons readr is better</li>
 </ul>
 </div>
-<div id="subsetting" class="section level4">
-<h4>Subsetting</h4>
-<p><strong>Methods</strong></p>
-<ul>
-<li>Extract by variable name: <code>df$x</code> or <code>df[[&quot;x&quot;]]</code></li>
-<li>Extract by column position: <code>df[[1]]</code></li>
-<li>in pipes: <code>df %&gt;% .$x</code> or <code>df %&gt;% .[[1]]</code></li>
-</ul>
-<p>** Comparison to data.frames **</p>
-<ul>
-<li>no partial matching,</li>
-<li>warns if column doesn’t exist</li>
-<li>data.frames selection <code>[</code> some times returns data.frames, or vectors</li>
-<li>tibbles always return tibbles</li>
-</ul>
-</div>
-</div>
-<div id="interacting-with-older-code" class="section level3">
-<h3>10.4 Interacting with older code</h3>
-<ul>
-<li>some older functions don’t work with <code>tibbles</code>. Use <code>as.data.frame()</code></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xhc3MoYXMuZGF0YS5mcmFtZSh0YikpXG5gYGAifQ== -->
-<pre class="r"><code>class(as.data.frame(tb))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="exercises" class="section level3">
-<h3>10.5 Exercises</h3>
+<div id="exercises" class="section level4">
+<h4>11.2.2 Exercises</h4>
 <ol style="list-style-type: decimal">
-<li><p>tibbles have different default print behaviour</p></li>
-<li>Compare &amp; Contrast
+<li>delimiter <code>|</code></li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVhZF9kZWxpbShcbiAgXCJhfGJ8Y1xcbjF8MnwzXFxuNHw1fDZcIixcbiAgXCJ8XCJcbilcbmBgYCJ9 -->
+<pre class="r"><code>read_delim(
+  &quot;a|b|c\n1|2|3\n4|5|6&quot;,
+  &quot;|&quot;
+)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li>Common options to <code>read_csv()</code> and <code>read_tsv()</code>: EVERYTHING
 <ul>
-<li>what does <code>Levels:</code> mean?</li>
+<li><code>file</code>, <code>skip</code>, <code>comment</code></li>
+<li><code>col_names</code>, <code>col_types</code>,</li>
+<li><code>locale = default_locale()</code> controls default timezone, encoding etc.</li>
+<li><code>na = c(&quot;&quot;,&quot;.&quot;,&quot;NA&quot;)</code>, <code>quoted_na = TRUE</code>,</li>
+<li><code>quote</code>, <code>comment</code> characters used to quote strings, and mark comments,</li>
+<li><code>trim_ws = TRUE</code> removes leading and trailing whitespace</li>
+<li><code>skip = n</code> skips lines before reading data</li>
+<li><code>n_max</code>, <code>guess_max</code> maximums rows to read, rows to use to guess col type</li>
+<li><code>progress</code></li>
+</ul></li>
+<li>Most important options to <code>?read_fwf</code>
+<ul>
+<li>file</li>
+<li>col positions generated by <code>fwf_positions</code>, <code>fwf_empty</code> etc.</li>
 </ul></li>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPC0gZGF0YS5mcmFtZShhYmMgPSAxLCB4eXogPSBcImFcIilcbmRmJHhcbmRmWywgXCJ4eXpcIl1cbmRmWywgYyhcImFiY1wiLCBcInh5elwiKV1cbmBgYCJ9 -->
-<pre class="r"><code>df &lt;- data.frame(abc = 1, xyz = &quot;a&quot;)
-df$x
-df[, &quot;xyz&quot;]
-df[, c(&quot;abc&quot;, &quot;xyz&quot;)]</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZndmX3NhbXBsZSA8LSByZWFkcl9leGFtcGxlKFwiZndmLXNhbXBsZS50eHRcIilcbmNhdChyZWFkX2xpbmVzKGZ3Zl9zYW1wbGUpKVxuYGBgIn0= -->
+<pre class="r"><code>fwf_sample &lt;- readr_example(&quot;fwf-sample.txt&quot;)
+cat(read_lines(fwf_sample))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPC0gdGliYmxlKGFiYyA9IDEsIHh5eiA9IFwiYVwiKVxuZGYkeFxuZGZbLCBcInh5elwiXVxuZGZbLCBjKFwiYWJjXCIsIFwieHl6XCIpXVxuYGBgIn0= -->
-<pre class="r"><code>df &lt;- tibble(abc = 1, xyz = &quot;a&quot;)
-df$x
-df[, &quot;xyz&quot;]
-df[, c(&quot;abc&quot;, &quot;xyz&quot;)]</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiSm9obiBTbWl0aCAgICAgICAgICBXQSAgICAgICAgNDE4LVkxMS00MTExIE1hcnkgSGFydGZvcmQgICAgICAgQ0EgICAgICAgIDMxOS1aMTktNDM0MSBFdmFuIE5vbGFuICAgICAgICAgIElMICAgICAgICAyMTktNTMyLWMzMDFcbiJ9 -->
+<pre><code>John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZb3UgY2FuIHNwZWNpZnkgY29sdW1uIHBvc2l0aW9ucyBpbiBzZXZlcmFsIHdheXM6XG4jIDEuIEd1ZXNzIGJhc2VkIG9uIHBvc2l0aW9uIG9mIGVtcHR5IGNvbHVtbnNcbnJlYWRfZndmKGZ3Zl9zYW1wbGUsIGZ3Zl9lbXB0eShmd2Zfc2FtcGxlLCBjb2xfbmFtZXMgPSBjKFwiZmlyc3RcIiwgXCJsYXN0XCIsIFwic3RhdGVcIiwgXCJzc25cIikpKVxuYGBgIn0= -->
+<pre class="r"><code># You can specify column positions in several ways:
+# 1. Guess based on position of empty columns
+read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c(&quot;first&quot;, &quot;last&quot;, &quot;state&quot;, &quot;ssn&quot;)))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ol start="3" style="list-style-type: decimal">
-<li>You can extract a variable whose name is stored in an object using <code>[[obj]]</code>:</li>
-</ol>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudmFyIDwtIFwiYWJjXCJcbmRmW1t2YXJdXVxuYGBgIn0= -->
-<pre class="r"><code>var &lt;- &quot;abc&quot;
-df[[var]]</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBmaXJzdCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgbGFzdCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgc3RhdGUgPSBjb2xfY2hhcmFjdGVyKCksXG4gIHNzbiA9IGNvbF9jaGFyYWN0ZXIoKVxuKVxuIn0= -->
+<pre><code>Parsed with column specification:
+cols(
+  first = col_character(),
+  last = col_character(),
+  state = col_character(),
+  ssn = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDMgeCA0XHUwMDFiWzM5bVxuICBmaXJzdCBsYXN0ICAgICBzdGF0ZSBzc24gICAgICAgICBcbiAgXHUwMDFiWzNtXHUwMDFiWzM4OzU7MjQ2bTxjaHI+XHUwMDFiWzM5bVx1MDAxYlsyM20gXHUwMDFiWzNtXHUwMDFiWzM4OzU7MjQ2bTxjaHI+XHUwMDFiWzM5bVx1MDAxYlsyM20gICAgXHUwMDFiWzNtXHUwMDFiWzM4OzU7MjQ2bTxjaHI+XHUwMDFiWzM5bVx1MDAxYlsyM20gXHUwMDFiWzNtXHUwMDFiWzM4OzU7MjQ2bTxjaHI+XHUwMDFiWzM5bVx1MDAxYlsyM20gICAgICAgXG5cdTAwMWJbMzg7NTsyNTBtMVx1MDAxYlszOW0gSm9obiAgU21pdGggICAgV0EgICAgNDE4LVkxMS00MTExXG5cdTAwMWJbMzg7NTsyNTBtMlx1MDAxYlszOW0gTWFyeSAgSGFydGZvcmQgQ0EgICAgMzE5LVoxOS00MzQxXG5cdTAwMWJbMzg7NTsyNTBtM1x1MDAxYlszOW0gRXZhbiAgTm9sYW4gICAgSUwgICAgMjE5LTUzMi1jMzAxXG4ifQ== -->
+<pre><code>[38;5;246m# A tibble: 3 x 4[39m
+  first last     state ssn         
+  [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m    [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       
+[38;5;250m1[39m John  Smith    WA    418-Y11-4111
+[38;5;250m2[39m Mary  Hartford CA    319-Z19-4341
+[38;5;250m3[39m Evan  Nolan    IL    219-532-c301</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyAyLiBBIHZlY3RvciBvZiBmaWVsZCB3aWR0aHNcbnJlYWRfZndmKGZ3Zl9zYW1wbGUsIGZ3Zl93aWR0aHMoYygyMCwgMTAsIDEyKSwgYyhcIm5hbWVcIiwgXCJzdGF0ZVwiLCBcInNzblwiKSkpXG5gYGAifQ== -->
+<pre class="r"><code># 2. A vector of field widths
+read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c(&quot;name&quot;, &quot;state&quot;, &quot;ssn&quot;)))</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBuYW1lID0gY29sX2NoYXJhY3RlcigpLFxuICBzdGF0ZSA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgc3NuID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
+<pre><code>Parsed with column specification:
+cols(
+  name = col_character(),
+  state = col_character(),
+  ssn = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDMgeCAzXHUwMDFiWzM5bVxuICBuYW1lICAgICAgICAgIHN0YXRlIHNzbiAgICAgICAgIFxuICBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbSAgICAgICAgIFx1MDAxYlszbVx1MDAxYlszODs1OzI0Nm08Y2hyPlx1MDAxYlszOW1cdTAwMWJbMjNtIFx1MDAxYlszbVx1MDAxYlszODs1OzI0Nm08Y2hyPlx1MDAxYlszOW1cdTAwMWJbMjNtICAgICAgIFxuXHUwMDFiWzM4OzU7MjUwbTFcdTAwMWJbMzltIEpvaG4gU21pdGggICAgV0EgICAgNDE4LVkxMS00MTExXG5cdTAwMWJbMzg7NTsyNTBtMlx1MDAxYlszOW0gTWFyeSBIYXJ0Zm9yZCBDQSAgICAzMTktWjE5LTQzNDFcblx1MDAxYlszODs1OzI1MG0zXHUwMDFiWzM5bSBFdmFuIE5vbGFuICAgIElMICAgIDIxOS01MzItYzMwMVxuIn0= -->
+<pre><code>[38;5;246m# A tibble: 3 x 3[39m
+  name          state ssn         
+  [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       
+[38;5;250m1[39m John Smith    WA    418-Y11-4111
+[38;5;250m2[39m Mary Hartford CA    319-Z19-4341
+[38;5;250m3[39m Evan Nolan    IL    219-532-c301</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyAzLiBQYWlyZWQgdmVjdG9ycyBvZiBzdGFydCBhbmQgZW5kIHBvc2l0aW9uc1xucmVhZF9md2YoZndmX3NhbXBsZSwgZndmX3Bvc2l0aW9ucyhjKDEsIDMwKSwgYygxMCwgNDIpLCBjKFwibmFtZVwiLCBcInNzblwiKSkpXG5gYGAifQ== -->
+<pre class="r"><code># 3. Paired vectors of start and end positions
+read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c(&quot;name&quot;, &quot;ssn&quot;)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBuYW1lID0gY29sX2NoYXJhY3RlcigpLFxuICBzc24gPSBjb2xfY2hhcmFjdGVyKClcbilcbiJ9 -->
+<pre><code>Parsed with column specification:
+cols(
+  name = col_character(),
+  ssn = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDMgeCAyXHUwMDFiWzM5bVxuICBuYW1lICAgICAgIHNzbiAgICAgICAgIFxuICBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbSAgICAgIFx1MDAxYlszbVx1MDAxYlszODs1OzI0Nm08Y2hyPlx1MDAxYlszOW1cdTAwMWJbMjNtICAgICAgIFxuXHUwMDFiWzM4OzU7MjUwbTFcdTAwMWJbMzltIEpvaG4gU21pdGggNDE4LVkxMS00MTExXG5cdTAwMWJbMzg7NTsyNTBtMlx1MDAxYlszOW0gTWFyeSBIYXJ0ZiAzMTktWjE5LTQzNDFcblx1MDAxYlszODs1OzI1MG0zXHUwMDFiWzM5bSBFdmFuIE5vbGFuIDIxOS01MzItYzMwMVxuIn0= -->
+<pre><code>[38;5;246m# A tibble: 3 x 2[39m
+  name       ssn         
+  [3m[38;5;246m&lt;chr&gt;[39m[23m      [3m[38;5;246m&lt;chr&gt;[39m[23m       
+[38;5;250m1[39m John Smith 418-Y11-4111
+[38;5;250m2[39m Mary Hartf 319-Z19-4341
+[38;5;250m3[39m Evan Nolan 219-532-c301</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyA0LiBOYW1lZCBhcmd1bWVudHMgd2l0aCBzdGFydCBhbmQgZW5kIHBvc2l0aW9uc1xucmVhZF9md2YoZndmX3NhbXBsZSwgZndmX2NvbHMobmFtZSA9IGMoMSwgMTApLCBzc24gPSBjKDMwLCA0MikpKVxuYGBgIn0= -->
+<pre class="r"><code># 4. Named arguments with start and end positions
+read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBuYW1lID0gY29sX2NoYXJhY3RlcigpLFxuICBzc24gPSBjb2xfY2hhcmFjdGVyKClcbilcbiJ9 -->
+<pre><code>Parsed with column specification:
+cols(
+  name = col_character(),
+  ssn = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDMgeCAyXHUwMDFiWzM5bVxuICBuYW1lICAgICAgIHNzbiAgICAgICAgIFxuICBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbSAgICAgIFx1MDAxYlszbVx1MDAxYlszODs1OzI0Nm08Y2hyPlx1MDAxYlszOW1cdTAwMWJbMjNtICAgICAgIFxuXHUwMDFiWzM4OzU7MjUwbTFcdTAwMWJbMzltIEpvaG4gU21pdGggNDE4LVkxMS00MTExXG5cdTAwMWJbMzg7NTsyNTBtMlx1MDAxYlszOW0gTWFyeSBIYXJ0ZiAzMTktWjE5LTQzNDFcblx1MDAxYlszODs1OzI1MG0zXHUwMDFiWzM5bSBFdmFuIE5vbGFuIDIxOS01MzItYzMwMVxuIn0= -->
+<pre><code>[38;5;246m# A tibble: 3 x 2[39m
+  name       ssn         
+  [3m[38;5;246m&lt;chr&gt;[39m[23m      [3m[38;5;246m&lt;chr&gt;[39m[23m       
+[38;5;250m1[39m John Smith 418-Y11-4111
+[38;5;250m2[39m Mary Hartf 319-Z19-4341
+[38;5;250m3[39m Evan Nolan 219-532-c301</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyA1LiBOYW1lZCBhcmd1bWVudHMgd2l0aCBjb2x1bW4gd2lkdGhzXG5yZWFkX2Z3Zihmd2Zfc2FtcGxlLCBmd2ZfY29scyhuYW1lID0gMjAsIHN0YXRlID0gMTAsIHNzbiA9IDEyKSlcbmBgYCJ9 -->
+<pre class="r"><code># 5. Named arguments with column widths
+read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBuYW1lID0gY29sX2NoYXJhY3RlcigpLFxuICBzdGF0ZSA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgc3NuID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
+<pre><code>Parsed with column specification:
+cols(
+  name = col_character(),
+  state = col_character(),
+  ssn = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDMgeCAzXHUwMDFiWzM5bVxuICBuYW1lICAgICAgICAgIHN0YXRlIHNzbiAgICAgICAgIFxuICBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbSAgICAgICAgIFx1MDAxYlszbVx1MDAxYlszODs1OzI0Nm08Y2hyPlx1MDAxYlszOW1cdTAwMWJbMjNtIFx1MDAxYlszbVx1MDAxYlszODs1OzI0Nm08Y2hyPlx1MDAxYlszOW1cdTAwMWJbMjNtICAgICAgIFxuXHUwMDFiWzM4OzU7MjUwbTFcdTAwMWJbMzltIEpvaG4gU21pdGggICAgV0EgICAgNDE4LVkxMS00MTExXG5cdTAwMWJbMzg7NTsyNTBtMlx1MDAxYlszOW0gTWFyeSBIYXJ0Zm9yZCBDQSAgICAzMTktWjE5LTQzNDFcblx1MDAxYlszODs1OzI1MG0zXHUwMDFiWzM5bSBFdmFuIE5vbGFuICAgIElMICAgIDIxOS01MzItYzMwMVxuIn0= -->
+<pre><code>[38;5;246m# A tibble: 3 x 3[39m
+  name          state ssn         
+  [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       
+[38;5;250m1[39m John Smith    WA    418-Y11-4111
+[38;5;250m2[39m Mary Hartford CA    319-Z19-4341
+[38;5;250m3[39m Evan Nolan    IL    219-532-c301</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="4" style="list-style-type: decimal">
-<li>Practice reference to non-syntactic names</li>
+<li>Read this: <code>&quot;x,y\n1,'a,b'&quot;</code> into a data frame</li>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5ub3lpbmcgPC0gdGliYmxlKFxuICBgMWAgPSAxOjEwLFxuICBgMmAgPSBgMWAgKiAyICsgcm5vcm0obGVuZ3RoKGAxYCkpXG4pXG5cbiMgZXh0cmFjdCB2YXJpYWJsZSBjYWxsZWQgMVxuYW5ub3lpbmckYDFgXG5cbiMgcGxvdCBzY2F0dGVycGxvdCBvZiBgMWAgdnMgYDJgXG5nZ3Bsb3QoZGF0YSA9IGFubm95aW5nKSArXG4gIGdlb21fcG9pbnQobWFwcGluZyA9IGFlcyggeCA9IGAxYCwgeSA9IGAyYCkpXG5cbiMgY3JlYXRlIG5ldyBjb2x1bW4gY2FsbGVkIGAzYFxubmV3X2Fubm95aW5nIDwtIG11dGF0ZShhbm5veWluZywgYDNgID0gYDJgIC8gYDFgKVxuXG4jIHJlbmFtZSBjb2x1bW5zIHRvIG9uZSwgdHdvLCB0aHJlZVxuYGNvbG5hbWVzPC1gKG5ld19hbm5veWluZyxjKCdvbmUnLCd0d28nLCd0aHJlZScpKVxuYGBgIn0= -->
-<pre class="r"><code>annoying &lt;- tibble(
-  `1` = 1:10,
-  `2` = `1` * 2 + rnorm(length(`1`))
-)
-
-# extract variable called 1
-annoying$`1`
-
-# plot scatterplot of `1` vs `2`
-ggplot(data = annoying) +
-  geom_point(mapping = aes( x = `1`, y = `2`))
-
-# create new column called `3`
-new_annoying &lt;- mutate(annoying, `3` = `2` / `1`)
-
-# rename columns to one, two, three
-`colnames&lt;-`(new_annoying,c('one','two','three'))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVhZF9jc3YoXG4gIFwieCx5XFxuMSwnYSxiJ1wiLFxuICBxdW90ZSA9IFwiJ1wiKVxuYGBgIn0= -->
+<pre class="r"><code>read_csv(
+  &quot;x,y\n1,'a,b'&quot;,
+  quote = &quot;'&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM4OzU7MjQ2bSMgQSB0aWJibGU6IDEgeCAyXHUwMDFiWzM5bVxuICAgICAgeCB5ICAgIFxuICBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGludD5cdTAwMWJbMzltXHUwMDFiWzIzbSBcdTAwMWJbM21cdTAwMWJbMzg7NTsyNDZtPGNocj5cdTAwMWJbMzltXHUwMDFiWzIzbVxuXHUwMDFiWzM4OzU7MjUwbTFcdTAwMWJbMzltICAgICAxIGEsYiAgXG4ifQ== -->
+<pre><code>[38;5;246m# A tibble: 1 x 2[39m
+      x y    
+  [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m
+[38;5;250m1[39m     1 a,b  </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="5" style="list-style-type: decimal">
-<li>What does <code>tibble::enframe</code> do? When might you use it?</li>
+<li>Whats wrong with:</li>
 </ol>
 <ul>
-<li><code>enframe()</code> takes named or unnamed vectors/lists and turns them into two column data frames</li>
-<li><code>deframe()</code> turns two column data frams into named vector or list</li>
+<li><code>read_csv(&quot;a,b\n1,2,3\n4,5,6&quot;)</code>: missing col name; only keeps col 1 &amp; 2 values</li>
+<li><code>read_csv(&quot;a,b,c\n1,2\n1,2,3,4&quot;)</code>: only keeps 3 cols, inputs NA, and drops 4</li>
+<li><code>read_csv(&quot;a,b\n\&quot;1&quot;)</code>: inputs NA for missing value</li>
+<li><code>read_csv(&quot;a,b\n1,2\na,b&quot;)</code>:</li>
+<li><code>read_csv(&quot;a;b\n1;3&quot;)</code>: delimiter is semi-colon, should be <code>read_csv2</code></li>
 </ul>
-<ol start="6" style="list-style-type: decimal">
-<li><code>print(x,..., n_extra = NULL)</code> sets number of extra col names to print. Default is at <code>getOption(&quot;tibble.max_extra_cols&quot;)</code></li>
-</ol>
 <!-- rnb-text-end -->
 </div>
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBmb3IgRGF0YSBTY2llbmNlIgpvdXRwdXQ6IAogIGh0bWxfbm90ZWJvb2s6CiAgICB0b2M6IHRydWUKCi0tLQojIyAxMCBUaWJibGVzCgojIyMgMTAuMSBJbnRyb2R1Y3Rpb24KCkZyb20gUiBmb3IgRGF0YSBTY2llbmNlLCBbMTA6IFRpYmJsZXNdKGh0dHA6Ly9yNGRzLmhhZC5jby5uei90aWJibGVzLmh0bWwpCgpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKYHZpZ25ldHRlKHRpYmJsZSlgIGhhcyBtb3JlIGV4YW1wbGVzOgoKLSB1c2Ugd2l0aCBsaXN0LWNvbHVtbnMKCiMjIyAxMC4yIENyZWF0aW5nIHRpYmJsZXMKCmBgYHtyfQphc190aWJibGUoaXJpcykKYGBgCgpgYGB7cn0KdGliYmxlKAogIHggPSAxOjUsCiAgeSA9IDEsCiAgeiA9IHggXiAyICsgeQopCmBgYAojIyMjIG5vbi1zeW50YWN0aWMgdmFyaWFibGUgbmFtZXMKCmBgYHtyfQp0YiA8LSB0aWJibGUoCiAgYDopYCA9ICJzbWlsZSIsCiAgYCBgID0gInNwYWNlIiwKICBgMjAwMGAgPSAibnVtYmVyIgopCnRiCmBgYAoKIyMjIyB0cmFuc3Bvc2VkIHRpYmJsZQoKYGBge3J9CnRyaWJibGUoCiAgfngsIH55LCB+eiwKICAjLS18LS18LS0tLQogICJhIiwgMiwgMy42LAogICJiIiwgMSwgOC41CikKYGBgCiMjIyAxMC4zIFRpYmJsZXMgdnMuIGRhdGEuZnJhbWUKCiMjIyMgcHJpbnRpbmcKCioqRGVmYXVsdCBCZWhhdmlvdXIqKgoKLSBvbmx5IGZpcnN0IDEwIHJvd3MKLSBhbGwgY29sdW1ucyBmaXQgb24gc2NyZWVuCi0gcmVwb3J0cyBjb2x1bW4gdHlwZQoKYGBge3J9CnRpYmJsZSgKICBhID0gbHVicmlkYXRlOjpub3coKSArIHJ1bmlmKDFlMykgKiA4NjQwMCwKICBiID0gbHVicmlkYXRlOjp0b2RheSgpICsgcnVuaWYoMWUzKSAqIDMwLAogIGMgPSAxOjFlMywKICBkID0gcnVuaWYoMWUzKSwKICBlID0gc2FtcGxlKGxldHRlcnMsIDFlMywgcmVwbGFjZSA9IFRSVUUpCikKYGBgCgoKKipWaWV3IG1vcmUqKgoKLSBgcHJpbnQobj1bcm93c10sIHdpZHRoPVtJbmYgZm9yIGFsbF0pYAotIGBWaWV3KClgOiB1c2VmdWwgYXQgZW5kIG9mIG1hbmlwdWxhdGlvbnMKCmBgYHtyfQpueWNmbGlnaHRzMTM6OmZsaWdodHMgJT4lCiAgcHJpbnQobj01LCB3aWR0aCA9IEluZikKYGBgCgoqKkNoYW5nZSBUaWJibGVzIERlZmF1bHQqKgoKCi0gYCBvcHRpb25zKHRpYmJsZS5wcmludF9tYXggPSBuLCB0aWJibGUucHJpbnRfbWluID0gbSkgYCB0byBzaG93IGF0IGxlYXN0IG0sIGFuZCBhdCBtb3N0IG4gcm93cwotIGAgb3B0aW9ucyhkcGx5ci5wcmludF9taW4gPSBJbmYpIGAgdG8gc2hvdyBhbGwgcm93cywgYWx3YXlzLgotIG90aGVyIG9wdGlvbnMgbGlzdGVkIGluIGBwYWNrYWdlP3RpYmJsZWAKCiMjIyMgU3Vic2V0dGluZwoKKipNZXRob2RzKioKCi0gRXh0cmFjdCBieSB2YXJpYWJsZSBuYW1lOiBgZGYkeGAgb3IgYGRmW1sieCJdXWAKLSBFeHRyYWN0IGJ5IGNvbHVtbiBwb3NpdGlvbjogYGRmW1sxXV1gCi0gaW4gcGlwZXM6IGBkZiAlPiUgLiR4YCBvciBgZGYgJT4lIC5bWzFdXWAKCioqIENvbXBhcmlzb24gdG8gZGF0YS5mcmFtZXMgKioKCi0gbm8gcGFydGlhbCBtYXRjaGluZywgCi0gd2FybnMgaWYgY29sdW1uIGRvZXNuJ3QgZXhpc3QKLSBkYXRhLmZyYW1lcyBzZWxlY3Rpb24gYFtgIHNvbWUgdGltZXMgcmV0dXJucyBkYXRhLmZyYW1lcywgb3IgdmVjdG9ycwotIHRpYmJsZXMgYWx3YXlzIHJldHVybiB0aWJibGVzCgojIyMgMTAuNCBJbnRlcmFjdGluZyB3aXRoIG9sZGVyIGNvZGUKCi0gc29tZSBvbGRlciBmdW5jdGlvbnMgZG9uJ3Qgd29yayB3aXRoIGB0aWJibGVzYC4gVXNlIGBhcy5kYXRhLmZyYW1lKClgCgpgYGB7cn0KY2xhc3MoYXMuZGF0YS5mcmFtZSh0YikpCmBgYAoKIyMjIDEwLjUgRXhlcmNpc2VzCgoxLiB0aWJibGVzIGhhdmUgZGlmZmVyZW50IGRlZmF1bHQgcHJpbnQgYmVoYXZpb3VyCgoyLiBDb21wYXJlICYgQ29udHJhc3QKICAgIC0gd2hhdCBkb2VzIGBMZXZlbHM6YCBtZWFuPwoKYGBge3J9CmRmIDwtIGRhdGEuZnJhbWUoYWJjID0gMSwgeHl6ID0gImEiKQpkZiR4CmRmWywgInh5eiJdCmRmWywgYygiYWJjIiwgInh5eiIpXQpgYGAKCmBgYHtyfQpkZiA8LSB0aWJibGUoYWJjID0gMSwgeHl6ID0gImEiKQpkZiR4CmRmWywgInh5eiJdCmRmWywgYygiYWJjIiwgInh5eiIpXQpgYGAKCjMuIFlvdSBjYW4gZXh0cmFjdCBhIHZhcmlhYmxlIHdob3NlIG5hbWUgaXMgc3RvcmVkIGluIGFuIG9iamVjdCB1c2luZyBgW1tvYmpdXWA6CmBgYHtyfQp2YXIgPC0gImFiYyIKZGZbW3Zhcl1dCmBgYAoKNC4gUHJhY3RpY2UgcmVmZXJlbmNlIHRvIG5vbi1zeW50YWN0aWMgbmFtZXMKYGBge3J9CmFubm95aW5nIDwtIHRpYmJsZSgKICBgMWAgPSAxOjEwLAogIGAyYCA9IGAxYCAqIDIgKyBybm9ybShsZW5ndGgoYDFgKSkKKQoKIyBleHRyYWN0IHZhcmlhYmxlIGNhbGxlZCAxCmFubm95aW5nJGAxYAoKIyBwbG90IHNjYXR0ZXJwbG90IG9mIGAxYCB2cyBgMmAKZ2dwbG90KGRhdGEgPSBhbm5veWluZykgKwogIGdlb21fcG9pbnQobWFwcGluZyA9IGFlcyggeCA9IGAxYCwgeSA9IGAyYCkpCgojIGNyZWF0ZSBuZXcgY29sdW1uIGNhbGxlZCBgM2AKbmV3X2Fubm95aW5nIDwtIG11dGF0ZShhbm5veWluZywgYDNgID0gYDJgIC8gYDFgKQoKIyByZW5hbWUgY29sdW1ucyB0byBvbmUsIHR3bywgdGhyZWUKYGNvbG5hbWVzPC1gKG5ld19hbm5veWluZyxjKCdvbmUnLCd0d28nLCd0aHJlZScpKQpgYGAKCjUuIFdoYXQgZG9lcyBgdGliYmxlOjplbmZyYW1lYCBkbz8gV2hlbiBtaWdodCB5b3UgdXNlIGl0PwoKLSBgZW5mcmFtZSgpYCB0YWtlcyBuYW1lZCBvciB1bm5hbWVkIHZlY3RvcnMvbGlzdHMgYW5kIHR1cm5zIHRoZW0gaW50byB0d28gY29sdW1uIGRhdGEgZnJhbWVzCi0gYGRlZnJhbWUoKWAgdHVybnMgdHdvIGNvbHVtbiBkYXRhIGZyYW1zIGludG8gbmFtZWQgdmVjdG9yIG9yIGxpc3QKCjYuIGBwcmludCh4LC4uLiwgbl9leHRyYSA9IE5VTEwpYCBzZXRzIG51bWJlciBvZiBleHRyYSBjb2wgbmFtZXMgdG8gcHJpbnQuIERlZmF1bHQgaXMgYXQgYGdldE9wdGlvbigidGliYmxlLm1heF9leHRyYV9jb2xzIilgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBmb3IgRGF0YSBTY2llbmNlIgpvdXRwdXQ6IAogIGh0bWxfbm90ZWJvb2s6CiAgICB0b2M6IHRydWUKLS0tCgojIyAxMSBEYXRhIEltcG9ydAoKRnJvbSBSIGZvciBEYXRhIFNjaWVuY2U6IFsxMSBEYXRhIEltcG9ydF0oaHR0cDovL3I0ZHMuaGFkLmNvLm56L2RhdGEtaW1wb3J0Lmh0bWwpClN0YXJ0ZWQ6IDEgTWF5LCAyMDE4CgojIyMgMTEuMSBJbnRyb2R1Y3Rpb24KCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgojIyMgMTEuMiBHZXR0aW5nIFN0YXJ0ZWQKCi0gYHJlYWRyYCBmdW5jdGlvbnMgYXJlIG1vc3RseSBjb25jZXJuZWQgd2l0aCBmbGF0IGZpbGVzIGludG8gZGF0YS5mcmFtZXM6Cgp8c2VwYXJhdGlvbnxmdW5jdGlvbiAgICAKfDotLS0tLS0tLXw6LS0tLS0tLS0tLS18CnxkZWxpbWl0ZXJ8IHwKfCAsIGNvbW1hIHwgYHJlYWRfY3N2KClgIHwKfCA7IHNlbWktY29sb24gfCBgcmVhZF9jc3YyKClgfAp8IHRhYiB8IGByZWFkX3RjdigpYCB8Cnwgb3RoZXIgfCBgcmVhZF9kZWxpbSgpYCB8CnxmaXhlZCB3aWR0aCBmaWxlc3wgfAp8IGF1dG8gfCBgcmVhZF9md2YoKWAgfAp8IHdpZHRocyB8IGBmd2Zfd2lkdGgoKWAgfAp8IHBvc2l0aW9ucyB8IGBmd2ZfcG9zaXRpb25zKClgIHwKfG90aGVyfCB8Cnx3aGl0ZSBzcGFjZSB0YWJsZXwgYHJlYWRfdGFibGUoKWAgfAp8bG9nIGZpbGVzfCBgcmVhZF9sb2coKWAgb3IgW3dlYnJlYWRyXShodHRwczovL2dpdGh1Yi5jb20vSXJvbmhvbGRzL3dlYnJlYWRyKQoKLSBGb2N1cyBvbiBgP3JlYWRfY3N2YC4gVXNlIGlubGluZSBjc3YgZm9yIGV4cGVyaW1lbnRhdGlvbgogICAgLSBgY29tbWVudCA9ICIjImAgZHJvcHMgYWxsIGxpbmVzIHN0YXJ0aW5nIHdpdGggYCNgCiAgICAtIGBza2lwID0gbmAgc2tpcHMgbiBsaWVzLCBhZnRlciBjb21tZW50IGRyb3AgKHJlZ2FyZGxlc3Mgb2Ygb3JkZXIgaW4gZnVuY3Rpb24pCiAgICAtIGBjb2xfbmFtZXMgPSBUUlVFL0ZBTFNFL2ModmVjdG9yKWAKICAgIC0gYG5hID0gIi4iYCByZWFkcyBhbnkgYC5gIGluIHRoZSBjc3YgYXMgTi9BIHZhbHVlcyAKCmBgYHtyfQpyZWFkX2NzdigKICAiIyBjb21tZW50CiAgbWV0YSBkYXRhCiAgYSxiLGMKICAxLDIsMwogIDQsNSw2IiwKICBza2lwID0gMSwgY29tbWVudCA9ICIjIiwgY29sX25hbWVzID0gYygib25lIiwidHdvIiwidGhyZWUiKQopCmBgYAopCgojIyMjIDExLjIuMSBDb21wYXJlZCB0byBCYXNlIFIKCi0gbWFueSByZWFzb25zIHJlYWRyIGlzIGJldHRlcgoKIyMjIyAxMS4yLjIgRXhlcmNpc2VzCgoxLiBkZWxpbWl0ZXIgYHxgCgpgYGB7cn0KcmVhZF9kZWxpbSgKICAiYXxifGNcbjF8MnwzXG40fDV8NiIsCiAgInwiCikKYGBgCgoyLiBDb21tb24gb3B0aW9ucyB0byBgcmVhZF9jc3YoKWAgYW5kIGByZWFkX3RzdigpYDogRVZFUllUSElORwogICAgLSBgZmlsZWAsIGBza2lwYCwgYGNvbW1lbnRgCiAgICAtIGBjb2xfbmFtZXNgLCBgY29sX3R5cGVzYCwgCiAgICAtIGBsb2NhbGUgPSBkZWZhdWx0X2xvY2FsZSgpYCBjb250cm9scyBkZWZhdWx0IHRpbWV6b25lLCBlbmNvZGluZyBldGMuCiAgICAtIGBuYSA9IGMoIiIsIi4iLCJOQSIpYCwgYHF1b3RlZF9uYSA9IFRSVUVgLAogICAgLSBgcXVvdGVgLCBgY29tbWVudGAgY2hhcmFjdGVycyB1c2VkIHRvIHF1b3RlIHN0cmluZ3MsIGFuZCBtYXJrIGNvbW1lbnRzLAogICAgLSBgdHJpbV93cyA9IFRSVUVgIHJlbW92ZXMgbGVhZGluZyBhbmQgdHJhaWxpbmcgd2hpdGVzcGFjZQogICAgLSBgc2tpcCA9IG5gIHNraXBzIGxpbmVzIGJlZm9yZSByZWFkaW5nIGRhdGEKICAgIC0gYG5fbWF4YCwgYGd1ZXNzX21heGAgbWF4aW11bXMgcm93cyB0byByZWFkLCByb3dzIHRvIHVzZSB0byBndWVzcyBjb2wgdHlwZQogICAgLSBgcHJvZ3Jlc3NgCiAgICAKMy4gTW9zdCBpbXBvcnRhbnQgb3B0aW9ucyB0byBgP3JlYWRfZndmYAogICAgLSBmaWxlCiAgICAtIGNvbCBwb3NpdGlvbnMgZ2VuZXJhdGVkIGJ5IGBmd2ZfcG9zaXRpb25zYCwgYGZ3Zl9lbXB0eWAgZXRjLgogICAgCmBgYHtyfQpmd2Zfc2FtcGxlIDwtIHJlYWRyX2V4YW1wbGUoImZ3Zi1zYW1wbGUudHh0IikKY2F0KHJlYWRfbGluZXMoZndmX3NhbXBsZSkpCiMgWW91IGNhbiBzcGVjaWZ5IGNvbHVtbiBwb3NpdGlvbnMgaW4gc2V2ZXJhbCB3YXlzOgojIDEuIEd1ZXNzIGJhc2VkIG9uIHBvc2l0aW9uIG9mIGVtcHR5IGNvbHVtbnMKcmVhZF9md2YoZndmX3NhbXBsZSwgZndmX2VtcHR5KGZ3Zl9zYW1wbGUsIGNvbF9uYW1lcyA9IGMoImZpcnN0IiwgImxhc3QiLCAic3RhdGUiLCAic3NuIikpKQojIDIuIEEgdmVjdG9yIG9mIGZpZWxkIHdpZHRocwpyZWFkX2Z3Zihmd2Zfc2FtcGxlLCBmd2Zfd2lkdGhzKGMoMjAsIDEwLCAxMiksIGMoIm5hbWUiLCAic3RhdGUiLCAic3NuIikpKQojIDMuIFBhaXJlZCB2ZWN0b3JzIG9mIHN0YXJ0IGFuZCBlbmQgcG9zaXRpb25zCnJlYWRfZndmKGZ3Zl9zYW1wbGUsIGZ3Zl9wb3NpdGlvbnMoYygxLCAzMCksIGMoMTAsIDQyKSwgYygibmFtZSIsICJzc24iKSkpCiMgNC4gTmFtZWQgYXJndW1lbnRzIHdpdGggc3RhcnQgYW5kIGVuZCBwb3NpdGlvbnMKcmVhZF9md2YoZndmX3NhbXBsZSwgZndmX2NvbHMobmFtZSA9IGMoMSwgMTApLCBzc24gPSBjKDMwLCA0MikpKQojIDUuIE5hbWVkIGFyZ3VtZW50cyB3aXRoIGNvbHVtbiB3aWR0aHMKcmVhZF9md2YoZndmX3NhbXBsZSwgZndmX2NvbHMobmFtZSA9IDIwLCBzdGF0ZSA9IDEwLCBzc24gPSAxMikpCmBgYAoKNC4gUmVhZCB0aGlzOiBgIngseVxuMSwnYSxiJyJgIGludG8gYSBkYXRhIGZyYW1lCgpgYGB7cn0KcmVhZF9jc3YoCiAgIngseVxuMSwnYSxiJyIsCiAgcXVvdGUgPSAiJyIpCmBgYAoKNS4gV2hhdHMgd3Jvbmcgd2l0aDoKCi0gYHJlYWRfY3N2KCJhLGJcbjEsMiwzXG40LDUsNiIpYDogbWlzc2luZyBjb2wgbmFtZTsgb25seSBrZWVwcyBjb2wgMSAmIDIgdmFsdWVzCi0gYHJlYWRfY3N2KCJhLGIsY1xuMSwyXG4xLDIsMyw0IilgOiBvbmx5IGtlZXBzIDMgY29scywgaW5wdXRzIE5BLCBhbmQgZHJvcHMgNAotIGByZWFkX2NzdigiYSxiXG5cIjEiKWA6IGlucHV0cyBOQSBmb3IgbWlzc2luZyB2YWx1ZQotIGByZWFkX2NzdigiYSxiXG4xLDJcbmEsYiIpYDogCi0gYHJlYWRfY3N2KCJhO2JcbjE7MyIpYDogZGVsaW1pdGVyIGlzIHNlbWktY29sb24sIHNob3VsZCBiZSBgcmVhZF9jc3YyYA==</div>
 
 
 
