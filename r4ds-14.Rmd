@@ -1,0 +1,123 @@
+---
+title: "r4ds: 14"
+output: 
+  html_notebook:
+    toc: true
+    highlight: kate
+---
+
+# Strings
+
+## 14.1 Introduction
+
+```{r}
+library(tidyverse)
+library(stringr)
+```
+
+## 14.2 String Basics
+
+```{r}
+# default `"` > `'`
+string1 <- "This is a string"
+string2 <- 'If I want to include a "quote" inside a string, I use single quotes'
+
+# Escape see: ?"'"
+double_quote <- "\"" # or '"'
+single_quote <- '\'' # or "'"
+backslash <- "\\"
+
+# Print vs. writeLines()
+x <- c("\"", "\\")
+x
+#> [1] "\"" "\\"
+writeLines(x)
+#> "
+#> \
+```
+
+### 14.2.1 String Length `str_length()`
+
+```{r}
+str_length(c("a", "R for data science", NA))
+#> [1]  1 18 NA
+```
+
+### 14.2.2 Combining Strings `str_c()`
+
+```
+# strings to combined string
+str_c("x", "y", "z")
+#> [1] "xyz"
+str_c("x", "y", sep = ", ")
+#> [1] "x, y"
+str_c("prefix-", c("a", "b", "c"), "-suffix")
+#> [1] "prefix-a-suffix" "prefix-b-suffix" "prefix-c-suffix"
+
+# vector to single string
+str_c(c("x", "y", "z"), collapse = ", ")
+#> [1] "x, y, z"
+```
+
+
+```{r}
+## PRINT NA
+x <- c("abc", NA)
+str_c("|-", x, "-|")
+#> [1] "|-abc-|" NA
+str_c("|-", str_replace_na(x), "-|")
+#> [1] "|-abc-|" "|-NA-|"
+
+## DEFAULT: drop object length 0
+name <- "Hadley"
+time_of_day <- "morning"
+birthday <- FALSE
+
+str_c(
+  "Good ", time_of_day, " ", name,
+  if (birthday) " and HAPPY BIRTHDAY",
+  "."
+)
+#> [1] "Good morning Hadley."
+
+```
+
+### Subsetting Strings `str_sub`
+
+```{r}
+x <- c("Apple", "Banana", "Pear")
+str_sub(x, 1, 3)
+#> [1] "App" "Ban" "Pea"
+# negative numbers count backwards from end
+str_sub(x, -3, -1)
+#> [1] "ple" "ana" "ear"
+
+## MODIFY subset of string
+str_sub(x, 1, 1) <- str_to_lower(str_sub(x, 1, 1))
+x
+```
+
+### 14.2.4 Locales 
+
+- Locales affect case change: `str_to_lower()`, `str_to_upper()`, `str_to_title()`
+- sorting and ordering: `str_sort()` `str_order(x, locale = "en")`
+
+### 14.2.5 Exercises
+
+```{r}
+x <- c(1:12)
+paste0(x)
+paste(x)        # same
+as.character(x) # same
+str_c(x) # same
+
+nth <- paste0(1:12, c("st", "nd", "rd", rep("th", 9)))
+str_c(1:12, c("st", "nd", "rd", rep("th", 9))) # same
+paste(1:12, c("st", "nd", "rd", rep("th", 9)))
+
+paste("1st", "2nd", "3rd", collapse = ", ") # probably not what you wanted
+paste("1st", "2nd", "3rd", sep = ", ")
+
+paste0(nth, collapse = ", ")
+# [1] "1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, 10th, 11th, 12th"
+```
